@@ -17,15 +17,20 @@
     $(document).ready(function() {
 
       var socket = io.connect('http://'+document.domain+':'+location.port)
+      var last_event = 'keyup'
 
-      $(document).keydown( function(e) {
-        // var direction = get_key_direction(e)
-        // console.log(direction)
-        socket.emit('move',  { direction: get_key_direction(e) } )
+      $(document).on('keydown', function(e) {
+        e.preventDefault()
+        if (prev_key_released()) {
+          socket.emit('move',  { direction: get_key_direction(e) } )
+        }
+        last_event = e.type
       })
 
       $(document).keyup( function(e) {
+        e.preventDefault()
         socket.emit('stop')
+        last_event = e.type
       })
 
       var get_key_direction = function(e) {
@@ -43,6 +48,14 @@
             return 'left'
         }
       }
+
+      var prev_key_released = function(e) {
+        if (last_event == 'keyup') {
+          return true
+        }
+        return false
+      }
+      
     })
   </script>
 </body>
