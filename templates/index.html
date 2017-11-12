@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Raspbot</title>
+  <meta name="description" content="A Raspberry PI powered robot">
+  <meta name="author" content="Eric Otto">
+  <!-- <link rel="stylesheet" href="css/styles.css?v=1.0"> -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.4/socket.io.slim.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.slim.js"></script>
+  <!--[if lt IE 9]>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.js"></script>
+  <![endif]-->
+</head>
+<body>
+  <script>
+    $(document).ready(function() {
+
+      var socket = io.connect('http://'+document.domain+':'+location.port)
+
+      $(document).keydown( function(e) {
+        // var direction = get_key_direction(e)
+        // console.log(direction)
+        socket.emit('move',  { direction: get_key_direction(e) } )
+      })
+
+      $(document).keyup( function(e) {
+        socket.emit('stop')
+      })
+
+      var get_key_direction = function(e) {
+        switch(e.keyCode) {
+          case 40:
+            return 'reverse'
+            break
+          case 39:
+            return 'right'
+            break
+          case 38:
+            return 'forward'
+            break
+          case 37:
+            return 'left'
+        }
+      }
+    })
+  </script>
+</body>
+</html>

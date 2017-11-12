@@ -1,5 +1,5 @@
 import RPi.GPIO as GPIO
-import time
+# import time
 
 class Motor:
 
@@ -19,35 +19,33 @@ class Motor:
     def foward(self):
         GPIO.output(self.left_pin_one, GPIO.HIGH)
         GPIO.output(self.right_pin_one, GPIO.HIGH)
-        time.sleep(2)
-        GPIO.output(self.left_pin_one, GPIO.LOW)
-        GPIO.output(self.right_pin_one, GPIO.LOW)
+        # time.sleep(2)
+        # GPIO.output(self.left_pin_one, GPIO.LOW)
+        # GPIO.output(self.right_pin_one, GPIO.LOW)
 
     def reverse(self):
         GPIO.output(self.left_pin_two, GPIO.HIGH)
         GPIO.output(self.right_pin_two, GPIO.HIGH)
-        time.sleep(2)
-        GPIO.output(self.left_pin_two, GPIO.LOW)
-        GPIO.output(self.right_pin_two, GPIO.LOW)
+        # time.sleep(2)
+        # GPIO.output(self.left_pin_two, GPIO.LOW)
+        # GPIO.output(self.right_pin_two, GPIO.LOW)
 
     def right(self):
         GPIO.output(self.left_pin_one, GPIO.HIGH)
         GPIO.output(self.right_pin_two, GPIO.HIGH)
-        time.sleep(1)
-        GPIO.output(self.left_pin_one, GPIO.LOW)
-        GPIO.output(self.right_pin_two, GPIO.LOW)
+        # time.sleep(1)
+        # GPIO.output(self.left_pin_one, GPIO.LOW)
+        # GPIO.output(self.right_pin_two, GPIO.LOW)
 
     def left(self):
         GPIO.output(self.left_pin_two, GPIO.HIGH)
         GPIO.output(self.right_pin_one, GPIO.HIGH)
-        time.sleep(1)
+        # time.sleep(1)
+        # GPIO.output(self.left_pin_two, GPIO.LOW)
+        # GPIO.output(self.right_pin_one, GPIO.LOW)
+
+    def stop(self):
+        GPIO.output(self.left_pin_one, GPIO.LOW)
         GPIO.output(self.left_pin_two, GPIO.LOW)
         GPIO.output(self.right_pin_one, GPIO.LOW)
-
-
-motor = Motor()
-motor.forward()
-motor.reverse()
-motor.right()
-motor.left()
-GPIO.cleanup()
+        GPIO.output(self.right_pin_two, GPIO.LOW)

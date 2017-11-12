@@ -1,17 +1,32 @@
-import socket
+from flask import Flask, render_template
+from flask_socketio import SocketIO
+import motor
 
-PORT = 1337
 
-server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-server.bind(("", PORT))
-server.listen(5)
-print "Listening on Port", PORT 
+app = Flask(__name__)
+socket = SocketIO(app)
 
-while True:
-    server.listen(5)
-    connection, address = server.accept()
-    data = "Hello, World"
-    connection.sendall(data)
-    print "Got a request!"
-    connection.close()
+motor = Motor()
 
+@app.route('/')
+def send_index():
+    return render_template('index.html')
+
+@socket.on('move')
+def move(data):
+    direction = data['direction']
+    if direction == 'right':
+        motor.right()
+    elif direction == 'left':
+        motor.left()
+    elif direction == 'forward':
+        motor.forward()
+    elif direction == 'reverse':
+        motor.reverse()
+
+@socket.on('stop')
+def stop():
+    motor.stop()
+
+if __name__ == '__main__':
+    socket.run(app)
