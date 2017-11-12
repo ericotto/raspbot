@@ -11,22 +11,22 @@ class Motor:
         self.right_pin_two = 24
 
         GPIO.setmode(GPIO.BCM)
-        GPIO.setup(left_pin_one, GPIO.OUT)
-        GPIO.setup(left_pin_two, GPIO.OUT)
-        GPIO.setup(right_pin_one, GPIO.OUT)
-        GPIO.setup(right_pin_two, GPIO.OUT)
+        GPIO.setup(self.left_pin_one, GPIO.OUT)
+        GPIO.setup(self.left_pin_two, GPIO.OUT)
+        GPIO.setup(self.right_pin_one, GPIO.OUT)
+        GPIO.setup(self.right_pin_two, GPIO.OUT)
 
-    def foward(self):
+    def forward(self):
         GPIO.output(self.left_pin_one, GPIO.HIGH)
         GPIO.output(self.right_pin_one, GPIO.HIGH)
-        # time.sleep(2)
+        # time.sleep(1)
         # GPIO.output(self.left_pin_one, GPIO.LOW)
         # GPIO.output(self.right_pin_one, GPIO.LOW)
 
     def reverse(self):
         GPIO.output(self.left_pin_two, GPIO.HIGH)
         GPIO.output(self.right_pin_two, GPIO.HIGH)
-        # time.sleep(2)
+        # time.sleep(1)
         # GPIO.output(self.left_pin_two, GPIO.LOW)
         # GPIO.output(self.right_pin_two, GPIO.LOW)
 
