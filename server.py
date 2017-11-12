@@ -1,6 +1,6 @@
 from flask import Flask, render_template
 from flask_socketio import SocketIO
-import motor
+from robot import Motor
 
 
 app = Flask(__name__)
@@ -10,6 +10,7 @@ motor = Motor()
 
 @app.route('/')
 def send_index():
+    print 'got request'
     return render_template('index.html')
 
 @socket.on('move')
@@ -29,4 +30,4 @@ def stop():
     motor.stop()
 
 if __name__ == '__main__':
-    socket.run(app)
+    socket.run(app, host='0.0.0.0')
