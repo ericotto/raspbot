@@ -19,10 +19,11 @@
       var socket = io.connect('http://'+document.domain+':'+location.port)
       var last_event = 'keyup'
 
-      $(document).on('keydown', function(e) {
+      $(document).keydown( function(e) {
         e.preventDefault()
-        if (prev_key_released()) {
-          socket.emit('move',  { direction: get_key_direction(e) } )
+        var direction = get_key_direction(e.keyCode)
+        if (prev_key_released() && direction) {
+          socket.emit('move',  { direction: direction } )
         }
         last_event = e.type
       })
@@ -33,20 +34,18 @@
         last_event = e.type
       })
 
-      var get_key_direction = function(e) {
-        switch(e.keyCode) {
-          case 40:
-            return 'reverse'
-            break
-          case 39:
-            return 'right'
-            break
-          case 38:
-            return 'forward'
-            break
-          case 37:
-            return 'left'
+      var get_key_direction = function(keyCode) {
+        key_map = {
+          40: 'reverse',
+          83: 'reverse',
+          39: 'right',
+          68: 'right',
+          38: 'forward',
+          87: 'forward',
+          37: 'left',
+          65: 'left'
         }
+        return key_map[keyCode]
       }
 
       var prev_key_released = function(e) {
@@ -55,7 +54,7 @@
         }
         return false
       }
-      
+
     })
   </script>
 </body>
